@@ -1,15 +1,15 @@
 #include "WebHelper.h"  //Keep, do not MODIFY!
 
-int Right_FrontA = 10 
-int Right_FrontB = 7 
-int Left_FrontA = 4 
-int Left_FrontB = 8 
-int Right_BackA = 6 
-int Right_BackB = 11 
-int Left_BackA = 9 
-int Left_BackB = 5
+int Right_FrontA = 10;
+int Right_FrontB = 6;
+int Left_FrontA = 8;
+int Left_FrontB = 4;
+int Right_BackA = 7;
+int Right_BackB = 11;
+int Left_BackA = 5;
+int Left_BackB = 9;
 
-  void setup() {
+void setup() {
   Serial.begin(9600);
   setupOTA();
   setupWebServer();
@@ -23,28 +23,88 @@ int Left_BackB = 5
   pinMode(Left_BackB, OUTPUT);
 }
 
-void loop() {         // put your main code here, to run repeatedly:
-  handleWebServer();  //Keep, do not MODIFY!
-  void leftDrive(double power) {
-float setPower = map(power * 100, -100, 100, 0, 255);
-analogWrite(Right_FrontA, setPower);
-analogWrite(Right_FrontB, 255 - setPower);
+void loop() {  // put your main code here, to run repeatedly:
+  handleWebServer();
+  
+if(keyboard.w && keyboard.a){
+rightfrontDrive(1);
+  leftfrontDrive(0);
+  rightbackDrive(0);
+  leftbackDrive(1);
+}else if(keyboard.w && keyboard.d){
+rightfrontDrive(0);
+  leftfrontDrive(1);
+  rightbackDrive(1);
+  leftbackDrive(0);
+   }else if(keyboard.s && keyboard.a){
+rightfrontDrive(0);
+  leftfrontDrive(-1);
+  rightbackDrive(-1);
+  leftbackDrive(0);
+  }else if(keyboard.s && keyboard.d){
+rightfrontDrive(-1);
+  leftfrontDrive(0);
+  rightbackDrive(0);
+  leftbackDrive(-1);
+  }else if(keyboard.w){
+rightfrontDrive(1);
+  leftfrontDrive(1);
+  rightbackDrive(1);
+  leftbackDrive(1);
+}else if(keyboard.a){
+rightfrontDrive(1);
+  leftfrontDrive(-1);
+  rightbackDrive(-1);
+  leftbackDrive(1);
+}else if(keyboard.d){
+rightfrontDrive(-1);
+  leftfrontDrive(1);
+  rightbackDrive(1);
+  leftbackDrive(-1);
+}else if(keyboard.s){
+rightfrontDrive(-1);
+  leftfrontDrive(-1);
+  rightbackDrive(-1);
+  leftbackDrive(-1);
+  }else if(keyboard.q){
+rightfrontDrive(1);
+  leftfrontDrive(-1);
+  rightbackDrive(1);
+  leftbackDrive(-1);
+  }else if(keyboard.e){
+rightfrontDrive(-1);
+  leftfrontDrive(1);
+  rightbackDrive(-1);
+  leftbackDrive(1);
+  }else{
+rightfrontDrive(0);
+  leftfrontDrive(0);
+  rightbackDrive(0);
+  leftbackDrive(0);
+
+  }
+
+
+}  //Keep, do not MODIFY!
+void rightfrontDrive(double power) {
+  float setPower = map(power * 100, -100, 100, 0, 255);
+  analogWrite(Right_FrontA, setPower);
+  analogWrite(Right_FrontB, 255 - setPower);
 }
 
-void rightDrive(double power) {
-float setPower = map(power * 100, -100, 100, 0, 255);
-analogWrite(Left_FrontA, setPower);
-analogWrite(Left_FrontB, 255 - setPower);
-
-void leftDrive(double power) {
-float setPower = map(power * 100, -100, 100, 0, 255);
-analogWrite(Right_BackA, setPower);
-analogWrite(Right_BackB, 255 - setPower);
+void leftfrontDrive(double power) {
+  float setPower = map(power * 100, -100, 100, 0, 255);
+  analogWrite(Left_FrontA, setPower);
+  analogWrite(Left_FrontB, 255 - setPower);
+}
+void rightbackDrive(double power) {
+  float setPower = map(power * 100, -100, 100, 0, 255);
+  analogWrite(Right_BackA, setPower);
+  analogWrite(Right_BackB, 255 - setPower);
 }
 
-void rightDrive(double power) {
-float setPower = map(power * 100, -100, 100, 0, 255);
-analogWrite(Left_BackA, setPower);
-analogWrite(Left_BackB, 255 - setPower);
+void leftbackDrive(double power) {
+  float setPower = map(power * 100, -100, 100, 0, 255);
+  analogWrite(Left_BackA, setPower);
+  analogWrite(Left_BackB, 255 - setPower);
 }
-
