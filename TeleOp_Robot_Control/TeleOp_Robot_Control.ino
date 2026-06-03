@@ -23,16 +23,18 @@ void setup() {
   pinMode(Right_BackB, OUTPUT);
   pinMode(Left_BackA, OUTPUT);
   pinMode(Left_BackB, OUTPUT);
-  servo.attach(servoPin);
+  servo.attach(servopin);
 }
 
 void loop() {  // put your main code here, to run repeatedly:
   handleWebServer();
-  servo.write(20);
-  delay(1000);
   servo.write(90);
-  delay(1000);
-if(keyboard.w && keyboard.a){
+  if(keyboard.i){
+    servo.write(20);
+    delay(500);
+    servo.write(90);
+    delay(1000);
+  }else if(keyboard.w && keyboard.a){
 rightfrontDrive(1);
   leftfrontDrive(0);
   rightbackDrive(0);
