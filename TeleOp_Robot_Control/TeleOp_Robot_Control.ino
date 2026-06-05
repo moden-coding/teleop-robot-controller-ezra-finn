@@ -1,7 +1,7 @@
 #include "WebHelper.h"  //Keep, do not MODIFY!
 #include <ESP32Servo.h>
 Servo servo;
-int servopin = 20;
+int servopin = 21;
 int Right_FrontA = 10;
 int Right_FrontB = 6;
 int Left_FrontA = 8;
@@ -28,12 +28,11 @@ void setup() {
 
 void loop() {  // put your main code here, to run repeatedly:
   handleWebServer();
-  servo.write(90);
+  
   if(keyboard.i){
-    servo.write(20);
-    delay(500);
-    servo.write(90);
-    delay(1000);
+    servo.write(5);
+  }else if(keyboard.p){
+servo.write(70);
   }else if(keyboard.w && keyboard.a){
 rightfrontDrive(1);
   leftfrontDrive(0);
